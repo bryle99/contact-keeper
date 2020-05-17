@@ -36,6 +36,7 @@ router.post(
       let user = await User.findOne({ email });
 
       if (user) {
+        // will be caught in try catch in reducer
         return res.status(400).json({ msg: 'User already exists' });
       }
 
@@ -69,12 +70,12 @@ router.post(
         config.get('jwtSecret'),
         // options
         {
-          expiresIn: 36000, // expires in 3600secs/1hour
+          expiresIn: 360000, // expires in 3600secs/1hour
         },
         // call back
         (err, token) => {
           if (err) throw err;
-          // outputs json
+          // outputs json with token
           res.json({ token });
         }
       );
